@@ -51,6 +51,9 @@ let store = {
     } else if (action.type === "UPDATE-NEW-POST-TEXT") {
       this._state.profilePage.newPostText = action.newText;
       this._callSubscruber(this._state);
+    } else if (action.type === "CLEAR-TEXTAREA") {
+      this._state.profilePage.newPostText = "";
+      this._callSubscruber(this._state);
     }
   },
 };

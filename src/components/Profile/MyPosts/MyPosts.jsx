@@ -18,6 +18,10 @@ const MyPosts = (props) => {
     props.dispatch({ type: "UPDATE-NEW-POST-TEXT", newText: text });
   };
 
+  let clearTextarea = () => {
+    props.dispatch({ type: "CLEAR-TEXTAREA" });
+  };
+
   return (
     <div className={s.postBlock}>
       <h3>My posts</h3>
@@ -30,8 +34,8 @@ const MyPosts = (props) => {
           />
         </div>
         <div>
-          <button onClick={addPost}>Add</button>
-          <button>Remove</button>
+          <button onClick={addPost}>Добавить</button>
+          <button onClick={clearTextarea}>Очистить</button>
         </div>
       </div>
       <div className={s.posts}>{postElements}</div>
