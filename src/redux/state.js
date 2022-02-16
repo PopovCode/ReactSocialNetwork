@@ -1,6 +1,8 @@
 const ADD_POST = "ADD-POST";
+const ADD_MESSAGE = "ADD-MESSAGE";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const CLEAR_TEXTAREA = "CLEAR-TEXTAREA";
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 
 let store = {
   _state: {
@@ -29,6 +31,7 @@ let store = {
         { id: 5, message: "Yo" },
         { id: 6, message: "PopovCode test message" },
       ],
+      newMessageText: "New Message Text from state",
     },
   },
   _callSubscruber() {
@@ -58,28 +61,35 @@ let store = {
     } else if (action.type === CLEAR_TEXTAREA) {
       this._state.profilePage.newPostText = "";
       this._callSubscruber(this._state);
+    } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+      this._state.dialogsPage.newMessageText = action.newText;
+      this._callSubscruber(this._state);
+    } else if (action.type === ADD_MESSAGE) {
+      let newMessage = {
+        id: 5,
+        message: this._state.dialogsPage.newMessageText,
+      };
+      this._state.dialogsPage.messages.push(newMessage);
+      this._state.dialogsPage.newMessageText = "";
+      this._callSubscruber(this._state);
     }
   },
 };
 
-export const addPostActionCreator = () => {
-  return {
-    type: ADD_POST,
-  };
-};
+export const addPostActionCreator = () => ({ type: ADD_POST });
+export const updateNewPostTextActionCreator = (text) => ({
+  type: UPDATE_NEW_POST_TEXT,
+  newText: text,
+});
 
-export const updateNewPostTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text,
-  };
-};
+export const updateNewMessageTextActionCreator = (text) => ({
+  type: UPDATE_NEW_MESSAGE_TEXT,
+  newText: text,
+});
 
-export const clearTextareaActionCreator = () => {
-  return {
-    type: "CLEAR-TEXTAREA",
-  };
-};
+export const addMessageActionCreator = () => ({ type: ADD_MESSAGE });
+
+export const clearTextareaActionCreator = () => ({ type: CLEAR_TEXTAREA });
 
 export default store;
 window.store = store;
