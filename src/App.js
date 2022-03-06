@@ -28,7 +28,8 @@ function App(props) {
             path={"/dialogs/*"}
             element={
               <Dialogs
-                state={props.state.dialogsPage}
+                store={props.store}
+                // state={props.state.dialogsPage}
                 dispatch={props.dispatch}
               />
             }

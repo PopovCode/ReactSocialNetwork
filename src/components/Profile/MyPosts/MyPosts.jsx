@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 import {
   updateNewPostTextActionCreator,
   addPostActionCreator,
-  clearTextareaActionCreator,
+  clearTextareaCreator,
 } from "../../../redux/state";
 
 const MyPosts = (props) => {
@@ -24,7 +24,7 @@ const MyPosts = (props) => {
   };
 
   let clearTextarea = () => {
-    props.dispatch(clearTextareaActionCreator());
+    props.dispatch(clearTextareaCreator());
   };
 
   return (

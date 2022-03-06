@@ -1,5 +1,5 @@
 const ADD_POST = "ADD-POST";
-const ADD_MESSAGE = "ADD-MESSAGE";
+const SEND_MESSAGE = "ADD-MESSAGE";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const CLEAR_TEXTAREA = "CLEAR-TEXTAREA";
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
@@ -22,6 +22,7 @@ let store = {
         { id: 3, name: "Solomaha" },
         { id: 4, name: "Kate" },
         { id: 5, name: "Igor" },
+        { id: 6, name: "Nataly" },
       ],
       messages: [
         { id: 1, message: "Hi" },
@@ -31,7 +32,7 @@ let store = {
         { id: 5, message: "Yo" },
         { id: 6, message: "PopovCode test message" },
       ],
-      newMessageText: "New Message Text from state",
+      newMessageBody: "New Message Text from state",
     },
   },
   _callSubscruber() {
@@ -62,15 +63,14 @@ let store = {
       this._state.profilePage.newPostText = "";
       this._callSubscruber(this._state);
     } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-      this._state.dialogsPage.newMessageText = action.newText;
+      this._state.dialogsPage.newMessageBody = action.newText;
       this._callSubscruber(this._state);
-    } else if (action.type === ADD_MESSAGE) {
-      let newMessage = {
+    } else if (action.type === SEND_MESSAGE) {
+      this._state.dialogsPage.messages.push({
         id: 5,
-        message: this._state.dialogsPage.newMessageText,
-      };
-      this._state.dialogsPage.messages.push(newMessage);
-      this._state.dialogsPage.newMessageText = "";
+        message: this._state.dialogsPage.newMessageBody,
+      });
+      this._state.dialogsPage.newMessageBody = "";
       this._callSubscruber(this._state);
     }
   },
@@ -82,14 +82,12 @@ export const updateNewPostTextActionCreator = (text) => ({
   newText: text,
 });
 
-export const updateNewMessageTextActionCreator = (text) => ({
+export const sendMessageCreator = () => ({ type: SEND_MESSAGE });
+export const updateNewMessageBodyCreator = (body) => ({
   type: UPDATE_NEW_MESSAGE_TEXT,
-  newText: text,
+  newText: body,
 });
-
-export const addMessageActionCreator = () => ({ type: ADD_MESSAGE });
-
-export const clearTextareaActionCreator = () => ({ type: CLEAR_TEXTAREA });
+export const clearTextareaCreator = () => ({ type: CLEAR_TEXTAREA });
 
 export default store;
 window.store = store;
